@@ -61,7 +61,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				food: {
+					primary: 'hsl(var(--food-primary))',
+					'primary-light': 'hsl(var(--food-primary-light))',
+					secondary: 'hsl(var(--food-secondary))'
+				},
+				whatsapp: 'hsl(var(--whatsapp))'
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-food': 'var(--gradient-food)'
+			},
+			boxShadow: {
+				'card': 'var(--shadow-card)',
+				'hover': 'var(--shadow-hover)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
