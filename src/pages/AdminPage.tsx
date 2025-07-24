@@ -3,14 +3,14 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { AdminMenuList } from '@/components/admin/AdminMenuList';
 import { useMenuData } from '@/hooks/useMenuData';
-import { useAdminMode } from '@/hooks/useAdminMode';
+import { useAdmin } from '@/context/AdminContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, ArrowLeft } from 'lucide-react';
+import { Shield, ArrowLeft, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 const AdminPage: React.FC = () => {
-  const { isAdmin } = useAdminMode();
+  const { isAdmin, logout } = useAdmin();
   const {
     menuItems,
     loading,
@@ -79,18 +79,35 @@ const AdminPage: React.FC = () => {
       <main className="container mx-auto px-4 py-8">
         {/* Admin Header */}
         <div className="bg-gradient-primary text-white rounded-lg p-6 mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <Shield className="h-6 w-6" />
-            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <Shield className="h-6 w-6" />
+              <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+            </div>
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={logout}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
           </div>
-          <p className="text-white/90">
+          <p className="text-white/90 mb-4">
             Manage your restaurant menu items. Add, edit, or remove items from your menu.
           </p>
-          <div className="mt-4">
+          <div className="flex gap-2">
             <Link to="/menu">
               <Button variant="secondary" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Menu
+              </Button>
+            </Link>
+            <Link to="/">
+              <Button variant="outline" size="sm" className="text-white border-white hover:bg-white/10">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Home
               </Button>
             </Link>
           </div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FoodItem } from '@/types/food';
 import { foodItems as defaultFoodItems } from '@/data/foodItems';
 
-const STORAGE_KEY = 'zaykaa_menu_items';
+const STORAGE_KEY = 'zaykaaMenu';
 
 export const useMenuData = () => {
   const [menuItems, setMenuItems] = useState<FoodItem[]>([]);
@@ -51,8 +51,12 @@ export const useMenuData = () => {
   };
 
   const deleteMenuItem = (id: string) => {
-    const updatedItems = menuItems.filter(item => item.id !== id);
-    saveToStorage(updatedItems);
+    // Show confirmation dialog
+    const confirmed = window.confirm('Delete this item? This action cannot be undone.');
+    if (confirmed) {
+      const updatedItems = menuItems.filter(item => item.id !== id);
+      saveToStorage(updatedItems);
+    }
   };
 
   const resetToDefaults = () => {
