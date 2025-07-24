@@ -4,19 +4,34 @@ import FoodCard from '@/components/FoodCard';
 import CategoryFilter from '@/components/CategoryFilter';
 import OrderModal from '@/components/OrderModal';
 import Footer from '@/components/Footer';
-import { foodItems } from '@/data/foodItems';
+import { useMenuData } from '@/hooks/useMenuData';
 
 const MenuPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { menuItems, loading } = useMenuData();
 
   const categories = useMemo(() => {
-    return Array.from(new Set(foodItems.map(item => item.category)));
-  }, []);
+    return Array.from(new Set(menuItems.map(item => item.category)));
+  }, [menuItems]);
 
   const filteredItems = useMemo(() => {
-    if (!selectedCategory) return foodItems;
-    return foodItems.filter(item => item.category === selectedCategory);
-  }, [selectedCategory]);
+    if (!selectedCategory) return menuItems;
+    return menuItems.filter(item => item.category === selectedCategory);
+  }, [selectedCategory, menuItems]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-16">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-muted-foreground">Loading menu...</div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
