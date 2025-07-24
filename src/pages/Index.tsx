@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Clock, MapPin } from 'lucide-react';
 import Footer from '@/components/Footer';
-
 const Index = () => {
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="bg-gradient-primary text-white">
         <div className="container mx-auto px-4 py-16 md:py-24">
@@ -24,16 +22,8 @@ const Index = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <a 
-                href="https://wa.me/918639378049" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-white text-white hover:bg-white hover:text-primary font-semibold text-lg px-8"
-                >
+              <a href="https://wa.me/918639378049" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline" className="border-white hover:bg-white font-semibold text-lg px-8 text-orange-500">
                   Contact Us
                 </Button>
               </a>
@@ -98,8 +88,6 @@ const Index = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
