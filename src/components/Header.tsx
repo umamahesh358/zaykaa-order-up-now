@@ -26,15 +26,18 @@ const Header: React.FC = () => {
                   Logout
                 </Button>
               ) : (
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={openLoginModal}
-                  className="hidden md:flex"
-                >
-                  <Shield className="h-4 w-4 mr-1" />
-                  Admin Login
-                </Button>
+                // Only show admin login in development mode
+                import.meta.env.DEV && (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={openLoginModal}
+                    className="hidden md:flex"
+                  >
+                    <Shield className="h-4 w-4 mr-1" />
+                    Admin Login
+                  </Button>
+                )
               )}
             </div>
             <p className="text-white/90 text-lg">Delicious food delivered to your doorstep</p>
@@ -60,15 +63,18 @@ const Header: React.FC = () => {
                 Logout
               </Button>
             ) : (
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={openLoginModal}
-                className="md:hidden"
-              >
-                <Shield className="h-4 w-4 mr-1" />
-                Admin Login
-              </Button>
+              // Only show admin login in development mode (mobile)
+              import.meta.env.DEV && (
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={openLoginModal}
+                  className="md:hidden"
+                >
+                  <Shield className="h-4 w-4 mr-1" />
+                  Admin Login
+                </Button>
+              )
             )}
           </div>
         </div>
