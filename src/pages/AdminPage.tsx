@@ -8,9 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, ArrowLeft, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-
 const AdminPage: React.FC = () => {
-  const { isAdmin, logout } = useAdmin();
+  const {
+    isAdmin,
+    logout
+  } = useAdmin();
   const {
     menuItems,
     loading,
@@ -22,8 +24,7 @@ const AdminPage: React.FC = () => {
 
   // Redirect if not admin (in production, you'd want proper authentication)
   if (!isAdmin) {
-    return (
-      <div className="min-h-screen bg-background">
+    return <div className="min-h-screen bg-background">
         <Header />
         <main className="container mx-auto px-4 py-16">
           <Card className="max-w-md mx-auto">
@@ -54,13 +55,10 @@ const AdminPage: React.FC = () => {
           </Card>
         </main>
         <Footer />
-      </div>
-    );
+      </div>;
   }
-
   if (loading) {
-    return (
-      <div className="min-h-screen bg-background">
+    return <div className="min-h-screen bg-background">
         <Header />
         <main className="container mx-auto px-4 py-16">
           <div className="flex justify-center items-center h-64">
@@ -68,12 +66,9 @@ const AdminPage: React.FC = () => {
           </div>
         </main>
         <Footer />
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -84,12 +79,7 @@ const AdminPage: React.FC = () => {
               <Shield className="h-6 w-6" />
               <h1 className="text-2xl font-bold">Admin Dashboard</h1>
             </div>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={logout}
-              className="bg-red-600 hover:bg-red-700"
-            >
+            <Button variant="destructive" size="sm" onClick={logout} className="bg-red-600 hover:bg-red-700">
               <LogOut className="h-4 w-4 mr-2" />
               Logout
             </Button>
@@ -105,7 +95,7 @@ const AdminPage: React.FC = () => {
               </Button>
             </Link>
             <Link to="/">
-              <Button variant="outline" size="sm" className="text-white border-white hover:bg-white/10">
+              <Button variant="outline" size="sm" className="border-white hover:bg-white/10 text-slate-950">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Home
               </Button>
@@ -114,18 +104,10 @@ const AdminPage: React.FC = () => {
         </div>
 
         {/* Menu Management */}
-        <AdminMenuList
-          menuItems={menuItems}
-          onAddItem={addMenuItem}
-          onUpdateItem={updateMenuItem}
-          onDeleteItem={deleteMenuItem}
-          onResetToDefaults={resetToDefaults}
-        />
+        <AdminMenuList menuItems={menuItems} onAddItem={addMenuItem} onUpdateItem={updateMenuItem} onDeleteItem={deleteMenuItem} onResetToDefaults={resetToDefaults} />
       </main>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default AdminPage;
