@@ -5,10 +5,10 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Phone, Shield } from 'lucide-react';
+import { Loader2, Phone, Shield, ArrowRight, Star, Clock, MapPin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-type Step = 'phone' | 'otp';
+type Step = 'phone' | 'otp' | 'welcome';
 
 interface LockScreenProps {
   onAuthenticated: () => void;
@@ -86,11 +86,11 @@ export const LockScreen: React.FC<LockScreenProps> = ({ onAuthenticated }) => {
       });
 
       if (response.ok) {
+        setStep('welcome');
         toast({
           title: 'Verification Successful',
           description: 'Welcome to Zaykaa!',
         });
-        onAuthenticated();
       } else {
         setError('Invalid code. Please try again.');
         setOtp('');
@@ -107,6 +107,104 @@ export const LockScreen: React.FC<LockScreenProps> = ({ onAuthenticated }) => {
     setOtp('');
     setError('');
   };
+
+  // Welcome page handler
+  const handleEnterApp = () => {
+    onAuthenticated();
+  };
+
+  // Welcome page content
+  if (step === 'welcome') {
+    return (
+      <div className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <section className="bg-gradient-primary text-white">
+          <div className="container mx-auto px-4 py-16 md:py-24">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Welcome to <span className="text-yellow-300">Zaykaa</span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-white/90">
+                Authentic flavors delivered fresh to your doorstep
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8"
+                  onClick={handleEnterApp}
+                >
+                  Enter App
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <a href="https://wa.me/918639378049" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" variant="outline" className="border-white hover:bg-white font-semibold text-lg px-8 text-orange-500">
+                    Contact Us
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-16 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="bg-gradient-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <Clock className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Fast Delivery</h3>
+                <p className="text-muted-foreground">
+                  Hot, fresh food delivered in 30-45 minutes
+                </p>
+              </div>
+              
+              <div className="text-center">
+                <div className="bg-gradient-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <Star className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Quality Food</h3>
+                <p className="text-muted-foreground">
+                  Made with fresh ingredients and authentic spices
+                </p>
+              </div>
+              
+              <div className="text-center">
+                <div className="bg-gradient-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Wide Coverage</h3>
+                <p className="text-muted-foreground">
+                  Serving across Delhi NCR with love
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Order?
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Discover our delicious menu filled with authentic Indian flavors
+            </p>
+            <Button 
+              size="lg" 
+              className="bg-gradient-primary hover:shadow-lg font-semibold text-lg px-8"
+              onClick={handleEnterApp}
+            >
+              Enter Zaykaa App
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary via-primary-foreground/20 to-secondary flex items-center justify-center p-4">
